@@ -1,0 +1,9 @@
+{
+	"name": "adf-dev-uksouth-cicd",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "54a3f095-fa64-4af9-8774-f5918d66bc79",
+		"tenantId": "ab08ccee-0528-4691-8aab-5d98aa41d877"
+	}
+}
