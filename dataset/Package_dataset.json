@@ -1,0 +1,23 @@
+{
+	"name": "Package_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_azdl_dev_uksouth",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Datalake_datasets"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "package.json",
+				"folderPath": "input",
+				"fileSystem": "default"
+			}
+		},
+		"schema": {}
+	}
+}
