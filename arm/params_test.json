@@ -4,11 +4,11 @@
     "value": "adf-test-uksouth-cicd"
   },
   {
-    "name": "ls_azdl_test_uksouth_accountKey",
+    "name": "ls_azdl_dev_uksouth_accountKey",
     "value": ""
   },
   {
-    "name": "ls_azdl_test_uksouth_properties_typeProperties_url",
+    "name": "ls_azdl_dev_uksouth_properties_typeProperties_url",
     "value": "https://sadltestuksouth.dfs.core.windows.net/"
   }
 ]
