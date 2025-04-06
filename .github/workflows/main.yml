@@ -66,7 +66,7 @@ jobs:
           resourceGroupName: rg-test-uksouth-cicd
           dataFactoryName: adf-test-uksouth-cicd
           armTemplateFile: ARMTemplateForFactory.json
-          armTemplateParametersFile: ${{github.workspace}}/arm/params_test.json
+          armTemplateParametersFile: ARMTemplateParametersForFactory.json
           #additionalParameters: # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
          
           # skipAzModuleInstallation:  # Parameters which skip the Az module installation. Optional, default is false.      
