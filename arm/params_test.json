@@ -1,14 +1,15 @@
-[
-  {
-    "name": "factoryName",
-    "value": "adf-test-uksouth-cicd"
-  },
-  {
-    "name": "ls_azdl_dev_uksouth_accountKey",
-    "value": ""
-  },
-  {
-    "name": "ls_azdl_dev_uksouth_properties_typeProperties_url",
-    "value": "https://sadltestuksouth.dfs.core.windows.net/"
-  }
-]
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "adf-dev-uksouth-cicd"
+        },
+        "ls_azdl_dev_uksouth_accountKey": {
+            "value": ""
+        },
+        "ls_azdl_dev_uksouth_properties_typeProperties_url": {
+            "value": "https://sadldevuksouth.dfs.core.windows.net/"
+        }
+    }
+}
