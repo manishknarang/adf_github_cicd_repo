@@ -2,7 +2,7 @@
 	"name": "Package_dataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_azdl_dev_uksouth",
+			"referenceName": "ls_az_datalake",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
