@@ -1,5 +1,5 @@
 {
-	"name": "pipeline2",
+	"name": "pl_move_package",
 	"properties": {
 		"activities": [
 			{
