@@ -1,0 +1,19 @@
+{
+	"name": "ds_output_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_az_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "output",
+				"fileSystem": "default"
+			}
+		},
+		"schema": {}
+	}
+}
