@@ -4,12 +4,6 @@
 	"parameters": {
 		"factoryName": {
 			"value": "adf-dev-uksouth-cicd"
-		},
-		"ls_az_datalake_accountKey": {
-			"value": ""
-		},
-		"ls_az_datalake_properties_typeProperties_url": {
-			"value": "https://sadldevuksouth.dfs.core.windows.net"
 		}
 	}
 }
