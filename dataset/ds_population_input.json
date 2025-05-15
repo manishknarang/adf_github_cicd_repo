@@ -2,7 +2,7 @@
 	"name": "ds_population_input",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_az_datalake",
+			"referenceName": "ls_az_datalake_kv",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

@@ -67,7 +67,7 @@ jobs:
           dataFactoryName: adf-test-uksouth-cicd
           armTemplateFile: ARMTemplateForFactory.json
           armTemplateParametersFile: ARMTemplateParametersForFactory.json
-          additionalParameters: ls_az_datalake_accountKey=${{secrets.TEST_DATALAKE_SECRET}} ls_az_datalake_properties_typeProperties_url=https://sadltestuksouth.dfs.core.windows.net/
+          additionalParameters: ls_az_keyvault_properties_typeProperties_baseUrl=https://kv-adf-test-dataplatform.vault.azure.net/ ls_az_datalake_kv_properties_typeProperties_url=https://sadltestuksouth.dfs.core.windows.net/
           # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
          
           # skipAzModuleInstallation:  # Parameters which skip the Az module installation. Optional, default is false.      
