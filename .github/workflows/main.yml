@@ -25,12 +25,12 @@ jobs:
         
 # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
     - name: Validate
-      run: npm run build validate ${{github.workspace}}/ /subscriptions/5f75b47d-10bb-4df1-9bd6-88b45c57ff9b/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
+      run: npm run build validate ${{github.workspace}}/ /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
       working-directory: ${{github.workspace}}/build
  
 
     - name: Validate and Generate ARM template
-      run: npm run build export ${{github.workspace}}/ /subscriptions/5f75b47d-10bb-4df1-9bd6-88b45c57ff9b/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
+      run: npm run build export ${{github.workspace}}/ /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
       working-directory: ${{github.workspace}}/build
  
 # In order to leverage the artifact in another job, we need to upload it with the upload action 
