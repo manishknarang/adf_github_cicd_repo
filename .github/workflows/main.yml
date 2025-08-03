@@ -58,7 +58,7 @@ jobs:
 
       - name: Update ARM template parameters from config
         run: |
-          python scripts/update_arm_template.py ExportedArmTemplate/ARMTemplateParametersForFactory.json configs/adf_param_test.json
+          python scripts/update_arm_template.py ExportedArmTemplate/ARMTemplateParametersForFactory.json configs/adf_params_test.json
 
       - name: Login via Az module
         uses: azure/login@v1
