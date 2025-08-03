@@ -1,56 +1,64 @@
 on:
   push:
     branches:
-    - main
+      - main
 
 permissions:
-      id-token: write
-      contents: read
+  id-token: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      # Installs Node and the npm packages saved in your package.json file in the build
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 18.x
 
-    - uses: actions/checkout@v3
-# Installs Node and the npm packages saved in your package.json file in the build
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3.4.1
-      with:
-        node-version: 18.x
-        
-    - name: install ADF Utilities package
-      run: npm install
-      working-directory: ${{github.workspace}}/build  # (1) provide the folder location of the package.json file
-        
+      - name: install ADF Utilities package
+        run: npm install
+        working-directory: ${{ github.workspace }}/build # (1) provide the folder location of the package.json file
+
 # Validates all of the Data Factory resources in the repository. You'll get the same validation errors as when "Validate All" is selected.
-    - name: Validate
-      run: npm run build validate ${{github.workspace}}/ /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd # (2) The validate command needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance 
-      working-directory: ${{github.workspace}}/build
- 
+      - name: Validate
+        run: npm run build validate ${{ github.workspace }}/ /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd
+        working-directory: ${{ github.workspace }}/build
 
-    - name: Validate and Generate ARM template
-      run: npm run build export ${{github.workspace}}/ /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd "ExportedArmTemplate"  # (3) The build command, as validate, needs the root folder location of your repository where all the objects are stored. And the 2nd parameter is the resourceID of the ADF instance. The 3rd parameter is the exported ARM template artifact name 
-      working-directory: ${{github.workspace}}/build
- 
+      - name: Validate and Generate ARM template
+        run: npm run build export ${{ github.workspace }}/ /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-dev-uksouth-cicd/providers/Microsoft.DataFactory/factories/adf-dev-uksouth-cicd "ExportedArmTemplate"
+        working-directory: ${{ github.workspace }}/build
+
 # In order to leverage the artifact in another job, we need to upload it with the upload action 
-    - name: upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ExportedArmTemplate # (4) use the same artifact name you used in the previous export step
-        path: ${{github.workspace}}/build/ExportedArmTemplate
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ExportedArmTemplate
+          path: ${{ github.workspace }}/build/ExportedArmTemplate
 
   release:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    
- # we 1st download the previously uploaded artifact so we can leverage it later in the release job     
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ExportedArmTemplate # (5) Artifact name
+          name: ExportedArmTemplate
+          path: ExportedArmTemplate
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Update ARM template parameters from config
+        run: |
+          python scripts/update_arm_template.py ExportedArmTemplate/ARMTemplateParametersForFactory.json configs/adf_param_test.json
 
       - name: Login via Az module
         uses: azure/login@v1
@@ -65,9 +73,9 @@ jobs:
         with:
           resourceGroupName: rg-test-uksouth-cicd
           dataFactoryName: adf-test-uksouth-cicd
-          armTemplateFile: ARMTemplateForFactory.json
-          armTemplateParametersFile: ARMTemplateParametersForFactory.json
-          additionalParameters: ls_az_keyvault_properties_typeProperties_baseUrl=https://kv-adf-test-dataplatform.vault.azure.net/ ls_az_datalake_kv_properties_typeProperties_url=https://sadltestuksouth.dfs.core.windows.net
+          armTemplateFile: ExportedArmTemplate/ARMTemplateForFactory.json
+          armTemplateParametersFile: ExportedArmTemplate/ARMTemplateParametersForFactory.json
+          #additionalParameters: #ls_az_keyvault_properties_typeProperties_baseUrl=https://kv-adf-test-dataplatform.vault.azure.net/ ls_az_datalake_kv_properties_typeProperties_url=https://sadltestuksouth.dfs.core.windows.net
           # (10) Parameters which will be replaced in the ARM template. Expected format 'key1=value key2=value keyN=value'. At the minimum here you should provide the target ADF name parameter. Check the ARMTemplateParametersForFactory.json file for all the parameters that are expected in your scenario
          
-          # skipAzModuleInstallation:  # Parameters which skip the Az module installation. Optional, default is false.      
+          # skipAzModuleInstallation:  # Parameters which skip the Az module installation. Optional, default is false.   

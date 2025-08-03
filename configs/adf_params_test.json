@@ -1,0 +1,5 @@
+{
+  "ls_az_keyvault_properties_typeProperties_baseUrl": "https://kv-adf-test-dataplatform.vault.azure.net/",
+  "ls_az_datalake_kv_properties_typeProperties_url": "https://sadltestuksouth.dfs.core.windows.net",
+  "factoryName":"adf-test-uksouth-cicd"
+}
