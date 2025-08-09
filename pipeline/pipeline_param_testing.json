@@ -1,0 +1,33 @@
+{
+	"name": "pipeline_param_testing",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vTestVariable",
+					"value": "something"
+				}
+			}
+		],
+		"parameters": {
+			"param_pipeline": {
+				"type": "string",
+				"defaultValue": "dev"
+			}
+		},
+		"variables": {
+			"vTestVariable": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
