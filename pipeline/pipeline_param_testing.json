@@ -19,7 +19,8 @@
 		],
 		"parameters": {
 			"param_pipeline": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dev"
 			}
 		},
 		"variables": {
