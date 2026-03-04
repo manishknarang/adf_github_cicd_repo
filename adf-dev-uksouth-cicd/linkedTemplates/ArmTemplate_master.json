@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-dev-uksouth-cicd"
 		},
+		"ls_az_datalake_kv_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://sadldevuksouth.dfs.core.windows.net"
+		},
+		"ls_az_keyvault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-adf-dev-dataplatform.vault.azure.net/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -33,6 +41,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ls_az_keyvault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_az_keyvault_properties_typeProperties_baseUrl')]"
+					},
+					"ls_az_datalake_kv_properties_typeProperties_url": {
+						"value": "[parameters('ls_az_datalake_kv_properties_typeProperties_url')]"
 					}
 				}
 			},
